@@ -1,4 +1,4 @@
-const host = "http://localhost:3000";
+const host = "https://etrackerfresh.vercel.app/";
 export const registerAPI = `${host}/api/auth/register`;
 export const loginAPI = `${host}/api/auth/login`;
 export const addTransaction = `${host}/api/v1/addTransaction`;
