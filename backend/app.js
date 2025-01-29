@@ -35,12 +35,14 @@ async function connectMongoDB() {
         process.exit(1);
     }
 }
+
 async function startServer() {
     try {
         await connectMongoDB();
         app.use(express.json());
         app.use(
             cors({
+                origin: "*",
                 credentials: true,
                 methods: ["GET", "POST", "PUT", "DELETE"],
             })
@@ -50,6 +52,9 @@ async function startServer() {
         app.use(morgan("dev"));
         app.use(bodyParser.json());
         app.use(bodyParser.urlencoded({ extended: false }));
+
+        app.options("*", cors());
+
         app.use("/api/v1", transactionRoutes);
         app.use("/api/auth", userRoutes);
         app.get("/", (req, res) => {

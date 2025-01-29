@@ -1,4 +1,4 @@
-const host = "https://etrackerfresh-18jpz4byu-gsharp73s-projects.vercel.app/";
+const host = "https://etrackerfresh-18jpz4byu-gsharp73s-projects.vercel.app";
 export const registerAPI = `${host}/api/auth/register`;
 export const loginAPI = `${host}/api/auth/login`;
 export const addTransaction = `${host}/api/v1/addTransaction`;
