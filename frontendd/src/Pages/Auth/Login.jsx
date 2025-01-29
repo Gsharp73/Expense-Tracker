@@ -132,14 +132,14 @@ const Login = () => {
             />
 
             <Box sx={{ mt: 2, display: "flex", flexDirection: "column", alignItems: "center" }}>
-              <MuiLink
+              {/* <MuiLink
                 component={Link}
                 to="/forgotPassword"
                 variant="body2"
                 sx={{ mb: 2 }}
               >
                 Forgot Password?
-              </MuiLink>
+              </MuiLink> */}
 
               <Button
                 type="submit"
