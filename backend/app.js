@@ -5,12 +5,15 @@ import bodyParser from "body-parser";
 import dotenv from "dotenv";
 import helmet from "helmet";
 import morgan from "morgan";
-import transactionRoutes from "./Routers/Transactions.js";
-import userRoutes from "./Routers/userRouter.js";
+import transactionRoutes from "./routes/Transactions.js";
+import userRoutes from "./routes/userRouter.js";
+import cookieParser from "cookie-parser"; 
 
 dotenv.config();
 
 const app = express();
+app.use(cookieParser());
+
 const port = process.env.PORT;
 const mongoURI = process.env.MONGODB_URI;
 
@@ -42,7 +45,8 @@ async function startServer() {
         app.use(express.json());
         app.use(
             cors({
-                origin: "https://expense-tracker-i4m2.vercel.app",
+                // origin: "https://expense-tracker-i4m2.vercel.app",
+                origin: "http://localhost:5173",
                 credentials: true,
                 methods: ["GET", "POST", "PUT", "DELETE"],
             })

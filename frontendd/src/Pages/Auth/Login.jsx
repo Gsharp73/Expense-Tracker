@@ -14,7 +14,8 @@ import {
   useTheme,
   Link as MuiLink
 } from "@mui/material";
-import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
+// import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
+import PaidOutlinedIcon from '@mui/icons-material/PaidOutlined';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -95,7 +96,7 @@ const Login = () => {
             alignItems: "center",
           }}
         >
-          <AccountBalanceWalletIcon
+          <PaidOutlinedIcon
             sx={{ fontSize: 40, color: "primary.main", mb: 2 }}
           />
           

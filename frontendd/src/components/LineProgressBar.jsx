@@ -1,27 +1,26 @@
 import React from 'react';
+import { LinearProgress, Box, Typography } from '@mui/material';
 
 const LineProgressBar = ({ label, percentage, lineColor }) => {
   return (
-    <div className="container">
-      <div className="d-flex justify-content-between align-items-center mb-2">
-        <span>{label}</span>
-        <span>{percentage}%</span>
-      </div>
-      <div className="progress" style={{ height: '24px' }}>
-        <div
-          className="progress-bar"
-          role="progressbar"
-          style={{
-            width: `${percentage}%`,
+    <Box>
+      <Box display="flex" justifyContent="space-between" alignItems="center" mb={2}>
+        <Typography>{label}</Typography>
+        <Typography>{percentage}%</Typography>
+      </Box>
+      <LinearProgress
+        variant="determinate"
+        value={percentage}
+        sx={{
+          height: 24,
+          backgroundColor: '#e0e0e0',
+          '& .MuiLinearProgress-bar': {
             backgroundColor: lineColor,
             transition: 'width 1s ease-in-out',
-          }}
-          aria-valuenow={percentage}
-          aria-valuemin="0"
-          aria-valuemax="100"
-        ></div>
-      </div>
-    </div>
+          },
+        }}
+      />
+    </Box>
   );
 };
 

@@ -157,7 +157,7 @@ const Home = () => {
 
   return (
     <>
-      <Header />
+      {/* <Header /> */}
       <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
         <Paper sx={{ p: 3, mb: 3 }}>
           <Grid container spacing={3} alignItems="flex-end">

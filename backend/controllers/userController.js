@@ -1,11 +1,15 @@
-import User from "../models/UserSchema.js";
+import User from "../models/users.js";
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
+dotenv.config();
+
+const JWT_SECRET = process.env.JWT_SECRET; 
 
 export const registerControllers = async (req, res) => {
     try {
         console.log("Register request received");
         const { name, email, password } = req.body;
-        
         if (!name || !email || !password) {
             return res.status(400).json({ msg: "All fields are required" });
         }
@@ -24,9 +28,17 @@ export const registerControllers = async (req, res) => {
             password: hashedPassword
         });
 
+        const token = jwt.sign({ userId: newUser._id }, JWT_SECRET, { expiresIn: "1h" });
+
+        res.cookie("token", token, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === "production",
+            maxAge: 3600 * 1000,
+        });
+
         return res.status(201).json({ 
             msg: "User registration successful",
-            user: newUser
+            user: { name: newUser.name, email: newUser.email, _id: newUser._id }
         });
     } catch (error) {
         console.error("Error in user registration:", error);
@@ -38,23 +50,33 @@ export const loginControllers = async (req, res) => {
     try {
         console.log("Login request received");
         const { email, password } = req.body;
+
         if (!email || !password) {
             return res.status(400).json({ msg: "All fields are required" });
         }
+
         const user = await User.findOne({ email });
         if (!user) {
-            console.log('ye');
             return res.status(401).json({ msg: "Invalid credentials" });
         }
+
         const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) {
             return res.status(401).json({ msg: "Invalid credentials" });
         }
-        const userResponse = user.toObject();
-        delete userResponse.password;
+
+        const token = jwt.sign({ userId: user._id }, JWT_SECRET, { expiresIn: "1h" });
+
+        // Set the JWT token as an HTTP-only cookie
+        res.cookie("token", token, {
+            httpOnly: true, // Prevent access to the cookie via JavaScript
+            secure: process.env.NODE_ENV === "production", // Only use secure cookies in production
+            maxAge: 3600 * 1000, 
+        });
+
         return res.status(200).json({
             msg: `Welcome back, ${user.name}`,
-            user: userResponse
+            user: { name: user.name, email: user.email, _id: user._id }
         });
     } catch (error) {
         console.error("Error in user login:", error);
@@ -62,50 +84,30 @@ export const loginControllers = async (req, res) => {
     }
 };
 
-export const setAvatarController = async (req, res) => {
+export const verifyToken = (req, res, next) => {
+    const token = req.cookies.token; // Extract token from cookies
+
+    if (!token) {
+        return res.status(403).json({ msg: "Access Denied, No Token Provided" });
+    }
+
     try {
-        console.log("Avatar update request received");
-        const userId = req.params.id;
-        const imageData = req.body.image;
-
-        if (!userId || !imageData) {
-            return res.status(400).json({ msg: "User ID and image are required" });
-        }
-
-        const updatedUser = await User.findByIdAndUpdate(
-            userId,
-            {
-                isAvatarImageSet: true,
-                avatarImage: imageData
-            },
-            { new: true }
-        );
-
-        if (!updatedUser) {
-            return res.status(404).json({ msg: "User not found" });
-        }
-
-        return res.status(200).json({
-            isSet: updatedUser.isAvatarImageSet,
-            image: updatedUser.avatarImage
-        });
+        const verified = jwt.verify(token, JWT_SECRET);
+        req.user = verified; // Attach the verified user information to the request
+        next(); // Proceed to the next middleware or route handler
     } catch (error) {
-        console.error("Error in avatar update:", error);
-        return res.status(500).json({ msg: "Internal Server Error" });
+        return res.status(401).json({ msg: "Invalid Token" });
     }
 };
 
 export const getAllUsers = async (req, res) => {
     try {
         console.log("Get all users request received");
-        const userId = req.params.id;
+        const userId = req.user.userId; // Access the user ID from the verified token
 
-        const users = await User.find(
-            { _id: { $ne: userId } }
-        ).select([
+        const users = await User.find({ _id: { $ne: userId } }).select([
             "email",
-            "username",
-            "avatarImage",
+            "name",
             "_id"
         ]);
 
@@ -115,3 +117,4 @@ export const getAllUsers = async (req, res) => {
         return res.status(500).json({ msg: "Internal Server Error" });
     }
 };
+

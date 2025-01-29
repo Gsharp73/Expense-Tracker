@@ -17,7 +17,8 @@ import {
   IconButton,
   CircularProgress,
 } from "@mui/material";
-import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
+// import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
+import PaidOutlinedIcon from '@mui/icons-material/PaidOutlined';
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import EmailIcon from "@mui/icons-material/Email";
@@ -157,7 +158,7 @@ const Register = () => {
               justifyContent: "center",
             }}
           >
-            <AccountBalanceWalletIcon sx={{ fontSize: 40, color: "white" }} />
+            <PaidOutlinedIcon sx={{ fontSize: 40, color: "white" }} />
           </Box>
 
           <Typography variant="h4" component="h1" gutterBottom fontWeight="500">
