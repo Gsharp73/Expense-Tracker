@@ -37,9 +37,10 @@ export const registerControllers = async (req, res) => {
         });
 
         return res.status(201).json({ 
+            success: true,
             msg: "User registration successful",
             user: { name: newUser.name, email: newUser.email, _id: newUser._id }
-        });
+        });        
     } catch (error) {
         console.error("Error in user registration:", error);
         return res.status(500).json({ msg: "Internal Server Error" });
