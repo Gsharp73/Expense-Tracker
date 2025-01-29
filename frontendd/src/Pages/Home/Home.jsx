@@ -195,18 +195,26 @@ const Home = () => {
             <Grid item xs={12} sm={4}>
               <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <Box>
-                  <IconButton 
-                    onClick={handleTableClick}
-                    color={view === "table" ? "primary" : "default"}
-                  >
-                    <FormatListBulletedIcon />
-                  </IconButton>
-                  <IconButton 
-                    onClick={handleChartClick}
-                    color={view === "chart" ? "primary" : "default"}
-                  >
-                    <BarChartIcon />
-                  </IconButton>
+                <IconButton 
+                  onClick={handleTableClick}
+                  color={view === "table" ? "primary" : "default"}
+                >
+                  <FormatListBulletedIcon />
+                  <Typography variant="caption" sx={{ ml: 0.5 }}>
+                    Table View
+                  </Typography>
+                </IconButton>
+
+                <IconButton 
+                  onClick={handleChartClick}
+                  color={view === "chart" ? "primary" : "default"}
+                >
+                  <BarChartIcon />
+                  <Typography variant="caption" sx={{ ml: 0.5 }}>
+                    Chart View
+                  </Typography>
+                </IconButton>
+
                 </Box>
                 <Button
                   variant="contained"
