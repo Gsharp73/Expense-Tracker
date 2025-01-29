@@ -16,8 +16,8 @@ The Expense Tracker is a full-stack web application designed to help users manag
 
 ### Clone the Repository
 ```sh
-git clone https://github.com/yourusername/expense-tracker.git
-cd expense-tracker
+git clone https://github.com/Gsharp73/Expense-Tracker.git
+cd Expense-Tracker
 ```
 
 ### Backend Setup
@@ -44,7 +44,7 @@ cd expense-tracker
 ### Frontend Setup
 1. Navigate to the frontend folder:
    ```sh
-   cd ../frontend
+   cd ../frontendd
    ```
 2. Install dependencies:
    ```sh
