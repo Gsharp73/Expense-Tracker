@@ -163,7 +163,7 @@ const Home = () => {
           <Grid container spacing={3} alignItems="flex-end">
             <Grid item xs={12} sm={4}>
               <FormControl fullWidth>
-                <InputLabel>Select Frequency</InputLabel>
+                <InputLabel>Select Duration</InputLabel>
                 <Select
                   value={frequency}
                   label="Select Frequency"

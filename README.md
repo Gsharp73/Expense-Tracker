@@ -1,5 +1,8 @@
 # Expense Tracker
 
+# Note:
+Use email = test@gmail.com password = 1234 for prefed data
+
 ## Overview
 The Expense Tracker is a full-stack web application designed to help users manage their finances. It allows users to track their expenses, analyze their spending patterns, and gain valuable insights into their financial habits. This application employs a secure JWT-based authentication system, with features like transaction management and spending insights.
 
