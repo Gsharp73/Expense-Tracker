@@ -187,7 +187,7 @@ const Home = () => {
                 >
                   <MenuItem value="all">All</MenuItem>
                   <MenuItem value="expense">Expense</MenuItem>
-                  <MenuItem value="credit">Earned</MenuItem>
+                  <MenuItem value="income">Earned</MenuItem>
                 </Select>
               </FormControl>
             </Grid>
@@ -348,7 +348,7 @@ const Home = () => {
                   onChange={handleChange}
                 >
                   <MenuItem value="">Choose...</MenuItem>
-                  <MenuItem value="credit">Credit</MenuItem>
+                  <MenuItem value="income">Income</MenuItem>
                   <MenuItem value="expense">Expense</MenuItem>
                 </Select>
               </FormControl>
